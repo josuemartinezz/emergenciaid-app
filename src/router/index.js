@@ -34,8 +34,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-    //const rutaAuth = to.matched.some(record => record.meta.requiresAuth)
-    const globalSession = JSON.parse(localStorage.getItem("sesion"));
+    const globalSession = JSON.parse(localStorage.getItem("session"));
     if (to.matched.some(record => record.meta.requiresAuth)) {
         if (!globalSession) {
             next({
