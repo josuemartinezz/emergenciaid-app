@@ -1,27 +1,58 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import store from '../store/index'
 
 Vue.use(VueRouter)
 
-const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+const routes = [{
+        path: '/',
+        name: 'Home',
+        component: Home,
+        meta: { requiresAuth: true }
+    },
+    {
+        path: '/login',
+        name: 'Login',
+        component: () =>
+            import ('../views/Login.vue'),
+        meta: { requiresAuth: false }
+    },
+    {
+        path: '/qrcode',
+        name: 'Qrcode',
+        component: () =>
+            import ('../views/QrLector.vue'),
+        meta: { requiresAuth: true }
+    }
 ]
 
 const router = new VueRouter({
-  routes
+    mode: 'history',
+    base: process.env.BASE_URL,
+    routes
 })
+
+router.beforeEach((to, from, next) => {
+    //const rutaAuth = to.matched.some(record => record.meta.requiresAuth)
+    const globalSession = JSON.parse(localStorage.getItem("sesion"));
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        if (!globalSession) {
+            next({
+                path: '/login',
+            })
+        } else {
+            next()
+        }
+    } else {
+        if (globalSession) {
+            next({
+                path: '/',
+            })
+        } else {
+            next()
+        }
+    }
+});
 
 export default router
