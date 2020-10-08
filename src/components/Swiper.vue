@@ -10,7 +10,7 @@
       <div class="user-information">
         <div class="detail">
           <b class="broke">{{ nombre }}</b>
-          <small class="broke">{{ email }} años</small>
+          <small class="broke">Nacimiento: {{ nacimiento }}</small>
           <small>Dui: {{ dui }}</small>
           <small>{{ direccion }}</small>
           <small>{{ ciudad }}</small>
@@ -27,13 +27,13 @@ export default {
   props: {
     uid: {
       type: String,
-      default: 0,
+      default: "---",
     },
     nombre: {
       type: String,
       default: "---",
     },
-    email: {
+    nacimiento: {
       type: String,
       default: "---",
     },

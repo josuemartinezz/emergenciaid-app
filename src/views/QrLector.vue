@@ -2,18 +2,32 @@
   <div class="code-qr">
     <div v-if="loading" class="loading"><p>Cargando...</p></div>
     <div v-if="isShow" class="loading">
-      <b-button @click="isShow = false, openSwiper()" variant="light">Cerrar</b-button>
+      <b-button @click="(isShow = false), openSwiper()" variant="light"
+        >Cerrar</b-button
+      >
     </div>
     <transition name="slide-fade">
       <Swiper
         :nombre="
           informationUser[0].nombres + ' ' + informationUser[0].apellidos
         "
-        :dui="informationUser[0].documento_identidad"
-        :ciudad="informationUser[0].nombre"
-        :direccion="informationUser[0].direccion"
-        :email="informationUser[0].email"
-        :uid="informationUser[0].uid"
+        :dui="
+          informationUser[0].documento_identidad === null
+            ? ''
+            : informationUser[0].documento_identidad
+        "
+        :ciudad="
+          informationUser[0].ciudad === null ? '' : informationUser[0].ciudad
+        "
+        :direccion="
+          informationUser[0].direccion === null
+            ? ''
+            : informationUser[0].direccion
+        "
+        :nacimiento="
+          informationUser[0].fecha_nacimiento === null ? '' : informationUser[0].fecha_nacimiento
+        "
+        :uid="informationUser[0].uid === null ? '' : informationUser[0].uid"
         class="swiper"
         v-if="show"
       />
@@ -36,7 +50,7 @@
   align-items: center;
   justify-content: center;
   transition: all 0.25s ease;
-  button{
+  button {
     position: fixed;
     top: 0;
     left: 0;
@@ -90,7 +104,7 @@ export default {
       show: false,
       loading: false,
       informationUser: {},
-      isShow: false
+      isShow: false,
     };
   },
   methods: {
@@ -104,9 +118,10 @@ export default {
         )
         .then((response) => {
           this.informationUser = response.data;
+          console.log(this.informationUser);
           this.loading = false;
           this.openSwiper();
-          this.isShow = true
+          this.isShow = true;
         });
     },
     openSwiper() {
