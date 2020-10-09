@@ -253,6 +253,11 @@ button {
     -o-transition: background 1s 0s linear;
     transition: background 1s 0s linear;
 
+    &.disabled {
+      border-radius: 0px;
+      border-bottom: unset;
+    }
+
     &.not-collapsed {
       border-bottom: unset;
     }
@@ -301,6 +306,17 @@ button {
 }
 a.btn.btn-link {
   color: rgb(33, 150, 243);
+}
+.text_secondary {
+  font-size: 18px;
+  line-height: 22px;
+  color: #98a1b3;
+}
+@media only screen and (height: 640px) {
+  .text_secondary {
+    line-height: 17px;
+    font-size: 16px;
+  }
 }
 #app {
   font-family: "TTCommons", Avenir, Helvetica, Arial, sans-serif;

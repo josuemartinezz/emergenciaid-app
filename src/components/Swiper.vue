@@ -2,10 +2,7 @@
   <div class="swiper-container">
     <div class="swiper-content">
       <div class="img-container">
-        <img
-          src="https://images.squarespace-cdn.com/content/v1/564142efe4b09d10c39f8a8f/1594926536902-L2RPB0G2W5J7PK3GSJX8/ke17ZwdGBToddI8pDm48kKSl30YZjGm1cuQENGkIgpd7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QHyNOqBUUEtDDsRWrJLTmQTQPF36sacLINHj8EM-mOpV6TiNljwpig9fIEXFxRtq20zARXe9frESMRzovEkMi/no-person-profile-pic.png"
-          alt=""
-        />
+        <img :src="getProfilePhoto(image)" alt />
       </div>
       <div class="user-information">
         <div class="detail">
@@ -27,29 +24,38 @@ export default {
   props: {
     uid: {
       type: String,
-      default: "---",
+      default: "---"
     },
     nombre: {
       type: String,
-      default: "---",
+      default: "---"
     },
     nacimiento: {
       type: String,
-      default: "---",
+      default: "---"
     },
     dui: {
       type: String,
-      default: "---",
+      default: "---"
     },
     ciudad: {
       type: String,
-      default: "---",
+      default: "---"
     },
     direccion: {
       type: String,
-      default: "---",
+      default: "---"
     },
+    image: {
+      type: String,
+      default: "---"
+    }
   },
+  methods: {
+    getProfilePhoto: function(image) {
+      return process.env.VUE_APP_BASE_URL + "resources/images/" + image;
+    }
+  }
 };
 </script>
 
@@ -58,14 +64,13 @@ export default {
   display: flex;
   flex-direction: column;
 }
-.broke{
-width: 70%;
+.broke {
+  width: 70%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 b {
-  
 }
 .swiper-container {
   .swiper-content {
