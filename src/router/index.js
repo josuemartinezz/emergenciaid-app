@@ -7,7 +7,7 @@ Vue.use(VueRouter)
 
 const routes = [
     {
-        path: "/",
+        path: "/dashboard",
         name: "Home",
         component: Home,
         meta: { requiresAuth: true },
@@ -19,7 +19,7 @@ const routes = [
         meta: { requiresAuth: false },
     },
     {
-        path: "/qrcode",
+        path: "/scan",
         name: "Qrcode",
         component: () => import("../views/QrLector.vue"),
         meta: { requiresAuth: true },
@@ -27,7 +27,19 @@ const routes = [
     {
         path: "/view/:uid",
         name: "Viewprofile",
-        component: () => import("../views/_id.vue"),
+        component: () => import("../views/View.vue"),
+        meta: { requiresAuth: true },
+    },
+    {
+        path: "/search/:search",
+        name: "Search",
+        component: () => import("../views/Search.vue"),
+        meta: { requiresAuth: true },
+    },
+    {
+        path: "/account",
+        name: "Account",
+        component: () => import("../views/Account.vue"),
         meta: { requiresAuth: true },
     },
 ]
@@ -51,7 +63,7 @@ router.beforeEach((to, from, next) => {
     } else {
         if (globalSession) {
             next({
-                path: "/",
+                path: "/dashboard",
             })
         } else {
             next()

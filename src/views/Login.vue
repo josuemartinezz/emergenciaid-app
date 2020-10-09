@@ -1,11 +1,6 @@
 <template>
-  <b-container fluid class="mh-100 h-100">
-    <b-row class="mx-1">
-      <b-col cols="12" class="my-4">
-        <b-img class :src="img()" alt="Emergencia.id"></b-img>
-      </b-col>
-    </b-row>
-    <b-row class="mx-1 h-75">
+  <b-container fluid class="fixed-height">
+    <b-row class="mx-1 h-100">
       <b-col cols="12" align-self="center" class="mt-n5">
         <h1 class="font-title text-main">Iniciar sesión</h1>
         <p class="mt-2 mb-4">Ingresa tus credenciales para continuar.</p>
@@ -64,6 +59,7 @@
 </style>
 
 <script>
+import { mapMutations } from "vuex";
 import axios from "axios";
 export default {
   data() {
@@ -98,14 +94,12 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(["getSession"]),
     countDownChanged(cuentaAlerta) {
       this.cuentaAlerta = cuentaAlerta;
     },
     showAlert() {
       this.cuentaAlerta = this.segundosRestantes;
-    },
-    img() {
-      return process.env.VUE_APP_BASE_URL + "resources/images/for-light-bg.svg";
     },
     login(evt) {
       evt.preventDefault();
@@ -125,7 +119,8 @@ export default {
           this.loginButton = "Acceder";
           if (response.data.status === 1) {
             localStorage.setItem("session", response.data.session);
-            this.$router.push("/");
+            this.$router.push("/dashboard");
+            this.getSession();
           } else {
             this.loginError = response.data.exception;
             this.showAlert();

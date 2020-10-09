@@ -1,10 +1,20 @@
 <template>
-  <div class="code-qr">
-    <div v-if="loading" class="loading"><p>Cargando...</p></div>
+  <b-container
+    fluid
+    class="bgc-gray p-0"
+    :class="$route.matched.some(({ name }) => name === 'Qrcode') ? 'h-100' : 'fixed-height'"
+  >
+    <div class="position-fixed px-3 py-3" style="z-index: 999;">
+      <b-button pill variant="link" to="/dashboard" class="bg-white p-1">
+        <b-icon-chevron-left to="/"></b-icon-chevron-left>
+        <p class="d-inline-block p-2 my-0">Regresar</p>
+      </b-button>
+    </div>
+    <div v-if="loading" class="loading">
+      <p>Cargando...</p>
+    </div>
     <div v-if="isShow" class="loading">
-      <b-button @click="(isShow = false), openSwiper()" variant="light"
-        >Cerrar</b-button
-      >
+      <b-button @click="(isShow = false), openSwiper()" variant="light">Cerrar</b-button>
     </div>
     <transition name="slide-fade">
       <Swiper
@@ -32,10 +42,10 @@
         v-if="show"
       />
     </transition>
-    <div style="width: 90%; margin: auto">
-      <qrcode-stream @detect="onDetect"></qrcode-stream>
-    </div>
-  </div>
+    <b-container fluid class="h-100 p-0 m-0">
+      <qrcode-stream class="h-100 w-100" @detect="onDetect"></qrcode-stream>
+    </b-container>
+  </b-container>
 </template>
 
 <style lang="less">
@@ -81,14 +91,6 @@
     bottom: -100 !important;
   }
 }
-
-.code-qr {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  height: 100vh;
-}
 </style>
 
 <script>
@@ -96,7 +98,7 @@ import Swiper from "@/components/Swiper.vue";
 import axios from "axios";
 export default {
   components: {
-    Swiper,
+    Swiper
   },
   data() {
     return {
@@ -104,7 +106,7 @@ export default {
       show: false,
       loading: false,
       informationUser: {},
-      isShow: false,
+      isShow: false
     };
   },
   methods: {
@@ -116,7 +118,7 @@ export default {
             "api/app/perfil.php?action=searchProfileWithUID&uid=" +
             this.retorno
         )
-        .then((response) => {
+        .then(response => {
           this.informationUser = response.data;
           console.log(this.informationUser);
           this.loading = false;
@@ -132,7 +134,7 @@ export default {
       this.retorno = content;
       //this.openSwiper();
       this.getInfo();
-    },
-  },
+    }
+  }
 };
 </script>

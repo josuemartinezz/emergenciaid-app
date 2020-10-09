@@ -9,7 +9,11 @@ export default new Vuex.Store({
             authenticated: false,
         },
     },
-    mutations: {},
+    mutations: {
+        getSession(state) {
+            localStorage.getItem("session") ? (state.user.authenticated = true) : (state.user.authenticated = false)
+        },
+    },
     actions: {},
     modules: {},
 })
