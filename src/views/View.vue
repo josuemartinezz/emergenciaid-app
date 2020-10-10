@@ -253,7 +253,7 @@
                       </b-col>
                       <b-col cols="12">
                         <b-row>
-                          <b-col cols="6" class="pr-1">
+                          <b-col cols="3" class="pr-1">
                             <b-form-group
                               id="names-data"
                               label="Altura"
@@ -269,7 +269,7 @@
                               ></b-form-input>
                             </b-form-group>
                           </b-col>
-                          <b-col cols="6" class="pl-1">
+                          <b-col cols="3" class="px-1">
                             <b-form-group
                               id="names-data"
                               label="Peso"
@@ -280,6 +280,22 @@
                                 class="textfield tfc-white"
                                 id="weight"
                                 v-model="profileData.generalInformation.weight"
+                                type="text"
+                                disabled
+                              ></b-form-input>
+                            </b-form-group>
+                          </b-col>
+                          <b-col cols="6" class="pl-1">
+                            <b-form-group
+                              id="isss-data"
+                              label="Estado del ISSS"
+                              label-for="isss"
+                              label-class="text-help"
+                            >
+                              <b-form-input
+                                class="textfield tfc-white"
+                                id="isss"
+                                v-model="profileData.generalInformation.isssState"
                                 type="text"
                                 disabled
                               ></b-form-input>
