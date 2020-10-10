@@ -3,7 +3,7 @@
     <b-container>
       <div class="position-fixed px-0 pt-4" style="z-index: 999;">
         <b-button pill variant="link" to="/dashboard" class="bgc-gray p-1">
-          <b-icon-chevron-left to="/"></b-icon-chevron-left>
+          <b-icon-chevron-left></b-icon-chevron-left>
           <p class="d-inline-block p-2 my-0">Regresar</p>
         </b-button>
       </div>
@@ -517,17 +517,18 @@
   </b-container>
 </template>
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
       loading: true,
       uid: this.$route.params.uid,
       profileData: {
-        image: "sin_foto.png",
-        names: "María José",
-        surnames: "Castellanos Castillo",
-        bloodType: "O+",
-        birthDate: "29/08/2002",
+        image: "",
+        names: "",
+        surnames: "",
+        bloodType: "",
+        birthDate: "",
         emergencyContacts: {},
         doctorContacts: {},
         medicines: {},
@@ -536,17 +537,32 @@ export default {
     };
   },
   mounted() {
-    setTimeout(() => {
-      this.loading = false;
-    }, 3000);
+    this.getData();
   },
   methods: {
     getProfilePhoto: function(photo) {
       return process.env.VUE_APP_BASE_URL + "resources/images/sin_foto.png";
+    },
+    getData() {
+      let formData = this.toFormData({ uid: this.uid });
+      axios
+        .post(
+          process.env.VUE_APP_BASE_URL +
+            "api/admin/perfil.php?action=getProfileByUID",
+          formData
+        )
+        .then(response => {
+          console.log(response.data.dataset);
+          this.loading = false;
+        });
+    },
+    toFormData: function(obj) {
+      var form_data = new FormData();
+      for (var key in obj) {
+        form_data.append(key, obj[key]);
+      }
+      return form_data;
     }
-  },
-  created() {
-    console.log(this.uid);
   }
 };
 </script>

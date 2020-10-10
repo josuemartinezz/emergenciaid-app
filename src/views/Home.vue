@@ -54,7 +54,7 @@
             </b-col>
             <b-col cols="7">
               <h5 class="card-title text-regular text-truncate">{{profile.name}}</h5>
-              <p class="mb-0 text_secondary">{{profile.age}} años</p>
+              <p class="mb-0 text_secondary">{{profile.age}}</p>
               <p class="mb-0 text_secondary">{{profile.doc_id}}</p>
               <p class="mb-0 text_secondary">{{profile.city}}</p>
               <p class="mb-0 text_secondary">{{profile.country}}</p>
@@ -72,32 +72,11 @@ export default {
   data() {
     return {
       loading: true,
-      profiles: {
-        1: {
-          uid: "IUDKS",
-          name: "María José Castellanos",
-          image: "sin_foto.png",
-          age: 18,
-          doc_id: "09023290-3",
-          city: "San Salvador",
-          country: "El Salvador"
-        },
-        2: {
-          uid: "KDSOE",
-          name: "Bryan Josué Galdámez",
-          image: "sin_foto.png",
-          age: 18,
-          doc_id: "06352412-3",
-          city: "La Libertad",
-          country: "El Salvador"
-        }
-      }
+      profiles: {}
     };
   },
   mounted() {
-    setTimeout(() => {
-      this.loading = false;
-    }, 3000);
+    this.test();
   },
   methods: {
     getProfilePhoto: function(image) {
@@ -113,7 +92,8 @@ export default {
           formData
         )
         .then(response => {
-          console.log(response.data);
+          this.profiles = response.data.dataset;
+          this.loading = false;
         });
     },
     toFormData: function(obj) {
