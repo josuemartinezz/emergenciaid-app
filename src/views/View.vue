@@ -68,94 +68,248 @@
             <b-img
               right
               rounded
-              :src="getProfilePhoto(profileData.image)"
+              :src="getProfilePhoto(profileData.generalInformation.image)"
               fluid
               style="height:100px"
             ></b-img>
           </b-col>
           <b-col cols="12" class="mt-3">
-            <b-form-group id="names-data" label="Nombres" label-for="email" label-class="text-help">
-              <b-form-input
-                class="textfield"
-                :class="profileData.names ? 'filled' : ''"
-                id="names"
-                v-model="profileData.names"
-                type="text"
-                :disabled="true"
-              ></b-form-input>
-            </b-form-group>
+            <div class="accordion" role="tablist">
+              <b-container class="p-0" fluid>
+                <b-button class="dropdown-gray" block v-b-toggle.generalInformation>
+                  <b-row class="p-0">
+                    <b-col cols="10">
+                      <p class="text-left m-0">Información General</p>
+                    </b-col>
+                    <b-col cols="2">
+                      <b-icon-chevron-down />
+                    </b-col>
+                  </b-row>
+                </b-button>
+                <b-collapse
+                  id="generalInformation"
+                  visible
+                  accordion="my-accordion"
+                  role="tabpanel"
+                >
+                  <b-container fluid class="px-3 bgc-gray profile-container">
+                    <b-row class="pt-2">
+                      <b-col cols="12">
+                        <b-form-group
+                          id="names-data"
+                          label="Nombres"
+                          label-for="email"
+                          label-class="text-help"
+                        >
+                          <b-form-input
+                            class="textfield tfc-white"
+                            id="names"
+                            v-model="profileData.generalInformation.name"
+                            type="text"
+                            disabled
+                          ></b-form-input>
+                        </b-form-group>
+                      </b-col>
+                      <b-col cols="12">
+                        <b-form-group
+                          id="surnames-data"
+                          label="Apellidos"
+                          label-for="names"
+                          label-class="text-help"
+                        >
+                          <b-form-input
+                            class="textfield tfc-white"
+                            id="surnames"
+                            v-model="profileData.generalInformation.surname"
+                            type="text"
+                            disabled
+                          ></b-form-input>
+                        </b-form-group>
+                      </b-col>
+                      <b-col cols="12">
+                        <b-form-group
+                          id="email-data"
+                          label="Correo electrónico"
+                          label-for="email"
+                          label-class="text-help"
+                        >
+                          <b-form-input
+                            class="textfield tfc-white"
+                            id="email"
+                            v-model="profileData.generalInformation.email"
+                            type="text"
+                            disabled
+                          ></b-form-input>
+                        </b-form-group>
+                      </b-col>
+                      <b-col cols="12">
+                        <b-form-group
+                          id="bloodType-data"
+                          label="Fecha de nacimiento"
+                          label-class="text-help"
+                        >
+                          <b-row>
+                            <b-col class="pr-1">
+                              <b-form-input
+                                class="textfield tfc-white text-center"
+                                id="day"
+                                v-model="profileData.generalInformation.birthDate.split('-')[2]"
+                                type="text"
+                                disabled
+                              ></b-form-input>
+                            </b-col>
+                            <b-col class="px-1">
+                              <b-form-input
+                                class="textfield tfc-white text-center"
+                                id="month"
+                                v-model="profileData.generalInformation.birthDate.split('-')[1]"
+                                type="text"
+                                disabled
+                              ></b-form-input>
+                            </b-col>
+                            <b-col class="pl-1">
+                              <b-form-input
+                                class="textfield tfc-white text-center"
+                                id="year"
+                                v-model="profileData.generalInformation.birthDate.split('-')[0]"
+                                type="text"
+                                disabled
+                              ></b-form-input>
+                            </b-col>
+                          </b-row>
+                        </b-form-group>
+                      </b-col>
+                      <b-col cols="12">
+                        <b-row>
+                          <b-col cols="6" class="pr-1">
+                            <b-form-group
+                              id="phone-data"
+                              label="Teléfono"
+                              label-for="email"
+                              label-class="text-help"
+                            >
+                              <b-form-input
+                                class="textfield tfc-white"
+                                id="profile-phone"
+                                v-model="profileData.generalInformation.phone"
+                                type="text"
+                                disabled
+                              ></b-form-input>
+                            </b-form-group>
+                          </b-col>
+                          <b-col cols="6" class="pl-1">
+                            <b-form-group
+                              id="birthDate-data"
+                              label="Documento"
+                              label-for="profile-doc_id"
+                              label-class="text-help"
+                            >
+                              <b-form-input
+                                class="textfield tfc-white"
+                                id="profile-doc_id"
+                                v-model="profileData.generalInformation.doc_id"
+                                type="text"
+                                disabled
+                              ></b-form-input>
+                            </b-form-group>
+                          </b-col>
+                        </b-row>
+                      </b-col>
+                      <b-col cols="12">
+                        <b-row>
+                          <b-col cols="6" class="pr-1">
+                            <b-form-group
+                              id="profile-data"
+                              label="Tipo de sangre"
+                              label-for="bloodType"
+                              label-class="text-help"
+                            >
+                              <b-form-input
+                                class="textfield tfc-white"
+                                id="profile-bloodType"
+                                v-model="profileData.generalInformation.bloodType"
+                                type="text"
+                                disabled
+                              ></b-form-input>
+                            </b-form-group>
+                          </b-col>
+                          <b-col cols="6" class="pl-1">
+                            <b-form-group
+                              id="birthDate-data"
+                              label="Es donante"
+                              label-for="isDonor"
+                              label-class="text-help"
+                            >
+                              <b-form-input
+                                class="textfield tfc-white"
+                                id="profile-isDonor"
+                                v-model="profileData.generalInformation.isDonor"
+                                type="text"
+                                disabled
+                              ></b-form-input>
+                            </b-form-group>
+                          </b-col>
+                        </b-row>
+                      </b-col>
+                      <b-col cols="12">
+                        <b-row>
+                          <b-col cols="6" class="pr-1">
+                            <b-form-group
+                              id="names-data"
+                              label="Altura"
+                              label-for="height"
+                              label-class="text-help"
+                            >
+                              <b-form-input
+                                class="textfield tfc-white"
+                                id="height"
+                                v-model="profileData.generalInformation.height"
+                                type="text"
+                                disabled
+                              ></b-form-input>
+                            </b-form-group>
+                          </b-col>
+                          <b-col cols="6" class="pl-1">
+                            <b-form-group
+                              id="names-data"
+                              label="Peso"
+                              label-for="weight"
+                              label-class="text-help"
+                            >
+                              <b-form-input
+                                class="textfield tfc-white"
+                                id="weight"
+                                v-model="profileData.generalInformation.weight"
+                                type="text"
+                                disabled
+                              ></b-form-input>
+                            </b-form-group>
+                          </b-col>
+                        </b-row>
+                      </b-col>
+                      <b-col cols="12">
+                        <b-form-group
+                          label-class="text-help"
+                          label="Dirección"
+                          label-for="profile-address"
+                        >
+                          <b-form-textarea
+                            class="textfield tfc-white"
+                            id="profile-address"
+                            v-model="profileData.generalInformation.address"
+                            max-rows="4"
+                            disabled
+                            no-resize
+                          ></b-form-textarea>
+                        </b-form-group>
+                      </b-col>
+                    </b-row>
+                  </b-container>
+                </b-collapse>
+              </b-container>
+            </div>
           </b-col>
-          <b-col cols="12">
-            <b-form-group
-              id="surnames-data"
-              label="Apellidos"
-              label-for="names"
-              label-class="text-help"
-            >
-              <b-form-input
-                class="textfield"
-                :class="profileData.surnames ? 'filled' : ''"
-                id="surnames"
-                v-model="profileData.surnames"
-                type="text"
-                :disabled="true"
-              ></b-form-input>
-            </b-form-group>
-          </b-col>
-          <b-col cols="12">
-            <b-form-group
-              id="birthDate-data"
-              label="Tipo de sangre"
-              label-for="bloodType"
-              label-class="text-help"
-            >
-              <b-form-input
-                class="textfield"
-                :class="profileData.bloodType ? 'filled' : ''"
-                id="bloodType"
-                v-model="profileData.bloodType"
-                type="text"
-                :disabled="true"
-              ></b-form-input>
-            </b-form-group>
-          </b-col>
-          <b-col cols="12">
-            <b-form-group id="bloodType-data" label="Fecha de nacimiento" label-class="text-help">
-              <b-row>
-                <b-col class="pr-1">
-                  <b-form-input
-                    class="textfield text-center"
-                    :class="profileData.birthDate.split('/')[0] !== '00' ? 'filled' : ''"
-                    id="day"
-                    v-model="profileData.birthDate.split('/')[0]"
-                    type="text"
-                    :disabled="true"
-                  ></b-form-input>
-                </b-col>
-                <b-col class="px-1">
-                  <b-form-input
-                    class="textfield text-center"
-                    :class="profileData.birthDate.split('/')[1] !== '00' ? 'filled' : ''"
-                    id="month"
-                    v-model="profileData.birthDate.split('/')[1]"
-                    type="text"
-                    :disabled="true"
-                  ></b-form-input>
-                </b-col>
-                <b-col class="pl-1">
-                  <b-form-input
-                    class="textfield text-center"
-                    :class="profileData.birthDate.split('/')[2] !== '0000' ? 'filled' : ''"
-                    id="year"
-                    v-model="profileData.birthDate.split('/')[2]"
-                    type="text"
-                    :disabled="true"
-                  ></b-form-input>
-                </b-col>
-              </b-row>
-            </b-form-group>
-          </b-col>
-          <b-col cols="12">
+          <b-col cols="12" class="mt-3">
             <b-form-group
               id="emergencyContacts"
               label="Contactos de emergencia"
@@ -207,7 +361,7 @@
                               :id="'relation'+index"
                               v-model="contact.relation"
                               type="text"
-                              :disabled="true"
+                              disabled
                             ></b-form-input>
                           </b-form-group>
                         </b-col>
@@ -220,10 +374,10 @@
                           >
                             <b-form-input
                               class="textfield tfc-white"
-                              :id="'phone'+index"
+                              :id="'phone-contact'+index"
                               v-model="contact.phone"
                               type="text"
-                              :disabled="true"
+                              disabled
                             ></b-form-input>
                           </b-form-group>
                         </b-col>
@@ -239,7 +393,7 @@
                               :id="'email'+index"
                               v-model="contact.email"
                               type="text"
-                              :disabled="true"
+                              disabled
                             ></b-form-input>
                           </b-form-group>
                         </b-col>
@@ -250,13 +404,15 @@
                             :label-for="'address'+index"
                             label-class="text-help"
                           >
-                            <b-form-input
+                            <b-form-textarea
                               class="textfield tfc-white"
                               :id="'address'+index"
                               v-model="contact.address"
                               type="text"
-                              :disabled="true"
-                            ></b-form-input>
+                              max-rows="4"
+                              disabled
+                              no-resize
+                            ></b-form-textarea>
                           </b-form-group>
                         </b-col>
                       </b-row>
@@ -314,7 +470,7 @@
                               :id="'specialty'+index"
                               v-model="contact.specialty"
                               type="text"
-                              :disabled="true"
+                              disabled
                             ></b-form-input>
                           </b-form-group>
                         </b-col>
@@ -327,10 +483,10 @@
                           >
                             <b-form-input
                               class="textfield tfc-white"
-                              :id="'phone'+index"
+                              :id="'phone-doctor'+index"
                               v-model="contact.phone"
                               type="text"
-                              :disabled="true"
+                              disabled
                             ></b-form-input>
                           </b-form-group>
                         </b-col>
@@ -384,13 +540,14 @@
                             :label-for="'notes'+index"
                             label-class="text-help"
                           >
-                            <b-form-input
+                            <b-form-textarea
                               class="textfield tfc-white"
                               :id="'notes'+index"
                               v-model="medicine.notes"
-                              type="text"
-                              :disabled="true"
-                            ></b-form-input>
+                              max-rows="4"
+                              disabled
+                              no-resize
+                            ></b-form-textarea>
                           </b-form-group>
                         </b-col>
                         <b-col cols="12">
@@ -405,7 +562,7 @@
                               :id="'doses'+index"
                               v-model="medicine.doses"
                               type="text"
-                              :disabled="true"
+                              disabled
                             ></b-form-input>
                           </b-form-group>
                         </b-col>
@@ -421,7 +578,7 @@
                               :id="'frequency'+index"
                               v-model="medicine.frequency"
                               type="text"
-                              :disabled="true"
+                              disabled
                             ></b-form-input>
                           </b-form-group>
                         </b-col>
@@ -458,7 +615,7 @@
                   <b-button class="dropdown-gray" block v-b-toggle="'medicalCondition-'+index">
                     <b-row class="p-0">
                       <b-col cols="10">
-                        <p class="text-left m-0">{{condition.name}}</p>
+                        <p class="text-left m-0">{{condition.condition}}</p>
                       </b-col>
                       <b-col cols="2">
                         <b-icon-chevron-down />
@@ -479,13 +636,14 @@
                             :label-for="'notes'+index"
                             label-class="text-help"
                           >
-                            <b-form-input
+                            <b-form-textarea
                               class="textfield tfc-white"
-                              :id="'notes'+index"
+                              :id="'notes-condition'+index"
                               v-model="condition.notes"
-                              type="text"
-                              :disabled="true"
-                            ></b-form-input>
+                              max-rows="4"
+                              disabled
+                              no-resize
+                            ></b-form-textarea>
                           </b-form-group>
                         </b-col>
                         <b-col cols="12">
@@ -500,7 +658,7 @@
                               :id="'medication'+index"
                               v-model="condition.medication"
                               type="text"
-                              :disabled="true"
+                              disabled
                             ></b-form-input>
                           </b-form-group>
                         </b-col>
@@ -514,6 +672,14 @@
         </b-row>
       </b-skeleton-wrapper>
     </b-container>
+    <b-alert
+      :show="cuentaAlerta"
+      class="position-fixed fixed-bottom m-0 rounded-0 text-center"
+      style="z-index: 9999;"
+      fade
+      variant="danger"
+      @dismiss-count-down="countDownChanged"
+    >{{profileLoadError}}</b-alert>
   </b-container>
 </template>
 <script>
@@ -524,24 +690,29 @@ export default {
       loading: true,
       uid: this.$route.params.uid,
       profileData: {
-        image: "",
-        names: "",
-        surnames: "",
-        bloodType: "",
-        birthDate: "",
+        generalInformation: { birthDate: "" },
         emergencyContacts: {},
         doctorContacts: {},
         medicines: {},
         medicalConditions: {}
-      }
+      },
+      cuentaAlerta: 0,
+      segundosRestantes: 3,
+      profileLoadError: ""
     };
   },
-  mounted() {
+  created() {
     this.getData();
   },
   methods: {
-    getProfilePhoto: function(photo) {
-      return process.env.VUE_APP_BASE_URL + "resources/images/sin_foto.png";
+    countDownChanged(cuentaAlerta) {
+      this.cuentaAlerta = cuentaAlerta;
+    },
+    showAlert() {
+      this.cuentaAlerta = this.segundosRestantes;
+    },
+    getProfilePhoto(photo) {
+      return process.env.VUE_APP_BASE_URL + "resources/images/" + photo;
     },
     getData() {
       let formData = this.toFormData({ uid: this.uid });
@@ -552,11 +723,27 @@ export default {
           formData
         )
         .then(response => {
-          console.log(response.data.dataset);
-          this.loading = false;
+          if (response.data.status === 1) {
+            this.profileData.generalInformation =
+              response.data.dataset.generalInformation;
+            this.profileData.emergencyContacts =
+              response.data.dataset.emergencyContacts;
+            this.profileData.doctorContacts =
+              response.data.dataset.doctorContacts;
+            this.profileData.medicines = response.data.dataset.medication;
+            this.profileData.medicalConditions =
+              response.data.dataset.medicalConditions;
+            this.loading = false;
+          } else {
+            this.profileLoadError = response.data.exception;
+            this.showAlert();
+            setTimeout(() => {
+              this.$router.push("/dashboard");
+            }, 3000);
+          }
         });
     },
-    toFormData: function(obj) {
+    toFormData(obj) {
       var form_data = new FormData();
       for (var key in obj) {
         form_data.append(key, obj[key]);
