@@ -2,9 +2,13 @@
   <b-container
     fluid
     class="bgc-gray p-0"
-    :class="$route.matched.some(({ name }) => name === 'Qrcode') ? 'h-100' : 'fixed-height'"
+    :class="
+      $route.matched.some(({ name }) => name === 'Qrcode')
+        ? 'h-100'
+        : 'fixed-height'
+    "
   >
-    <div class="position-fixed px-3 py-3" style="z-index: 999;">
+    <div class="position-fixed px-3 py-3" style="z-index: 999">
       <b-button pill variant="link" to="/dashboard" class="bg-white p-1">
         <b-icon-chevron-left to="/"></b-icon-chevron-left>
         <p class="d-inline-block p-2 my-0">Regresar</p>
@@ -14,7 +18,13 @@
       <p>Cargando...</p>
     </div>
     <div v-if="isShow" class="loading">
-      <b-button @click="(isShow = false), openSwiper()" variant="light">Cerrar</b-button>
+      <b-button
+        pill
+        variant="link"
+        class="bg-white p-1"
+        @click="(isShow = false), openSwiper()"
+        ><p class="d-inline-block p-2 my-0">Escanear otro codigo</p></b-button
+      >
     </div>
     <transition name="slide-fade">
       <Swiper
@@ -35,7 +45,9 @@
             : informationUser[0].direccion
         "
         :nacimiento="
-          informationUser[0].fecha_nacimiento === null ? '' : informationUser[0].fecha_nacimiento
+          informationUser[0].fecha_nacimiento === null
+            ? ''
+            : informationUser[0].fecha_nacimiento
         "
         :uid="informationUser[0].uid === null ? '' : informationUser[0].uid"
         class="swiper"
@@ -63,8 +75,8 @@
   button {
     position: fixed;
     top: 0;
-    left: 0;
-    margin: 10px;
+    right: 0;
+    margin: 18px;
   }
 }
 .slide-fade-enter-active {
@@ -98,7 +110,7 @@ import Swiper from "@/components/Swiper.vue";
 import axios from "axios";
 export default {
   components: {
-    Swiper
+    Swiper,
   },
   data() {
     return {
@@ -106,7 +118,7 @@ export default {
       show: false,
       loading: false,
       informationUser: {},
-      isShow: false
+      isShow: false,
     };
   },
   methods: {
@@ -118,23 +130,40 @@ export default {
             "api/app/perfil.php?action=searchProfileWithUID&uid=" +
             this.retorno
         )
-        .then(response => {
+        .then((response) => {
           this.informationUser = response.data;
           console.log(this.informationUser);
           this.loading = false;
           this.openSwiper();
           this.isShow = true;
+          this.saveRecentProfile(this.informationUser[0].uid);
         });
+    },
+    saveRecentProfile(profileUid) {
+      let datos = JSON.parse(localStorage.getItem("recent-profiles"));
+      if (datos === null) {
+        let arr = [];
+        arr.push(profileUid);
+        localStorage.setItem("recent-profiles", JSON.stringify(arr));
+      } else {
+        datos.push(profileUid);
+        localStorage.setItem("recent-profiles", JSON.stringify(datos));
+      }
+      //profiles.push(profileUid)
+      //localStorage.setItem("recent-profiles", profiles)
+      //console.log(profiles)
     },
     openSwiper() {
       this.show = true != this.show;
+      console.log("Se detecto");
     },
     async onDetect(promise) {
-      const { imageData, content, location } = await promise;
-      this.retorno = content;
-      //this.openSwiper();
-      this.getInfo();
-    }
-  }
+      if (!this.isShow) {
+        const { imageData, content, location } = await promise;
+        this.retorno = content;
+        this.getInfo();
+      }
+    },
+  },
 };
 </script>

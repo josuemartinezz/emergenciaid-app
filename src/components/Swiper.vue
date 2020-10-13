@@ -24,31 +24,31 @@ export default {
   props: {
     uid: {
       type: String,
-      default: "---"
+      default: "Sin UID"
     },
     nombre: {
       type: String,
-      default: "---"
+      default: "Sin nombre"
     },
     nacimiento: {
       type: String,
-      default: "---"
+      default: "Sin fecha de nacimiento"
     },
     dui: {
       type: String,
-      default: "---"
+      default: "Sin dui"
     },
     ciudad: {
       type: String,
-      default: "---"
+      default: "Sin ciudad"
     },
     direccion: {
       type: String,
-      default: "---"
+      default: "Sin dirección"
     },
     image: {
       type: String,
-      default: "---"
+      default: "Sin imagen"
     }
   },
   methods: {
@@ -76,6 +76,7 @@ b {
   .swiper-content {
     width: 100%;
     display: flex;
+    padding: 20px;
     .img-container {
       width: 50%;
       img {

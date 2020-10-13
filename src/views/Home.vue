@@ -83,7 +83,8 @@ export default {
       return process.env.VUE_APP_BASE_URL + "resources/images/" + image;
     },
     test() {
-      let arr = ["NIRXK", "CZPUF", "6HVA3", "WM26O", "ZGWYW"];
+      let datos = JSON.parse(localStorage.getItem("recent-profiles"));
+      const arr = [...new Set(datos)];
       let formData = this.toFormData(arr);
       axios
         .post(

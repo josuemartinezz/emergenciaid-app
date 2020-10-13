@@ -5,41 +5,51 @@ import store from "../store/index"
 
 Vue.use(VueRouter)
 
-const routes = [
-    {
+const routes = [{
         path: "/dashboard",
         name: "Home",
         component: Home,
         meta: { requiresAuth: true },
     },
     {
+        path: "/",
+        name: "Redirect",
+        component: Home,
+        meta: { requiresAuth: false },
+    },
+    {
         path: "/login",
         name: "Login",
-        component: () => import("../views/Login.vue"),
+        component: () =>
+            import ("../views/Login.vue"),
         meta: { requiresAuth: false },
     },
     {
         path: "/scan",
         name: "Qrcode",
-        component: () => import("../views/QrLector.vue"),
+        component: () =>
+            import ("../views/QrLector.vue"),
         meta: { requiresAuth: true },
     },
     {
         path: "/view/:uid",
         name: "Viewprofile",
-        component: () => import("../views/View.vue"),
+        component: () =>
+            import ("../views/View.vue"),
         meta: { requiresAuth: true },
     },
     {
         path: "/search/:search",
         name: "Search",
-        component: () => import("../views/Search.vue"),
+        component: () =>
+            import ("../views/Search.vue"),
         meta: { requiresAuth: true },
     },
     {
         path: "/account",
         name: "Account",
-        component: () => import("../views/Account.vue"),
+        component: () =>
+            import ("../views/Account.vue"),
         meta: { requiresAuth: true },
     },
 ]
