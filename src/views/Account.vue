@@ -14,6 +14,7 @@
       type="text"
       disabled
     ></b-form-input>
+    <button @click="logout">Cerrar sesión</button>
   </b-container>
 </template>
 
@@ -22,13 +23,18 @@ import axios from "axios";
 export default {
   data() {
     return {
-      info: null,
+      info: [],
     };
   },
   mounted() {
     this.getInfo();
   },
   methods: {
+    logout(){
+      localStorage.clear();
+      this.$router.push('/login')
+      this.$store.state.user.authenticated = false
+    },
     getInfo() {
       axios
         .get(
