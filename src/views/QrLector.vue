@@ -77,10 +77,10 @@
   }
 }
 .slide-fade-enter-active {
-  transition: all 0.7s ease;
+  transition: all 0.03s ease;
 }
 .slide-fade-leave-active {
-  transition: all 2s ease;
+  transition: all 0.5s ease;
 }
 .slide-fade-enter,
 .slide-fade-leave-to {

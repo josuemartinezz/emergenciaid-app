@@ -90,7 +90,8 @@ export default {
 }
 .page-enter-active,
 .page-leave-active {
-  transition: opacity 0.7s, transform 0.7s;
+  transition: opacity 0.15s, transform 0.15s;
+  transition-duration: 0.15s;
 }
 .page-enter,
 .page-leave-to {
