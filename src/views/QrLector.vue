@@ -18,38 +18,35 @@
       <p>Cargando...</p>
     </div>
     <div v-if="isShow" class="loading">
-      <b-button
-        pill
-        variant="link"
-        class="bg-white p-1"
-        @click="(isShow = false), openSwiper()"
-        ><p class="d-inline-block p-2 my-0">Escanear otro codigo</p></b-button
-      >
+      <b-button pill variant="link" class="bg-white p-1" @click="(isShow = false), openSwiper()">
+        <p class="d-inline-block p-2 my-0">Escanear otro codigo</p>
+      </b-button>
     </div>
     <transition name="slide-fade">
       <Swiper
-        :nombre="
+        :image="informationUser[0].foto"
+        :nombre="informationUser[0].documento_identidad === null ? 'Sin nombre' :
           informationUser[0].nombres + ' ' + informationUser[0].apellidos
         "
         :dui="
           informationUser[0].documento_identidad === null
-            ? ''
+            ? 'Sin documento de identidad'
             : informationUser[0].documento_identidad
         "
         :ciudad="
-          informationUser[0].ciudad === null ? '' : informationUser[0].ciudad
+          informationUser[0].ciudad === null ? 'Sin ciudad' : informationUser[0].ciudad
         "
         :direccion="
           informationUser[0].direccion === null
-            ? ''
+            ? 'Sin dirección'
             : informationUser[0].direccion
         "
         :nacimiento="
           informationUser[0].fecha_nacimiento === null
-            ? ''
+            ? 'Sin fecha de nacimiento'
             : informationUser[0].fecha_nacimiento
         "
-        :uid="informationUser[0].uid === null ? '' : informationUser[0].uid"
+        :uid="informationUser[0].uid === null ? 'Sin UID' : informationUser[0].uid"
         class="swiper"
         v-if="show"
       />
@@ -110,7 +107,7 @@ import Swiper from "@/components/Swiper.vue";
 import axios from "axios";
 export default {
   components: {
-    Swiper,
+    Swiper
   },
   data() {
     return {
@@ -118,7 +115,7 @@ export default {
       show: false,
       loading: false,
       informationUser: {},
-      isShow: false,
+      isShow: false
     };
   },
   methods: {
@@ -130,7 +127,7 @@ export default {
             "api/app/perfil.php?action=searchProfileWithUID&uid=" +
             this.retorno
         )
-        .then((response) => {
+        .then(response => {
           this.informationUser = response.data;
           console.log(this.informationUser);
           this.loading = false;
@@ -141,6 +138,7 @@ export default {
     },
     saveRecentProfile(profileUid) {
       let datos = JSON.parse(localStorage.getItem("recent-profiles"));
+
       if (datos === null) {
         let arr = [];
         arr.push(profileUid);
@@ -149,9 +147,6 @@ export default {
         datos.push(profileUid);
         localStorage.setItem("recent-profiles", JSON.stringify(datos));
       }
-      //profiles.push(profileUid)
-      //localStorage.setItem("recent-profiles", profiles)
-      //console.log(profiles)
     },
     openSwiper() {
       this.show = true != this.show;
@@ -163,7 +158,7 @@ export default {
         this.retorno = content;
         this.getInfo();
       }
-    },
-  },
+    }
+  }
 };
 </script>

@@ -41,7 +41,7 @@
           </b-row>
         </b-container>
       </template>
-      <b-container fluid class="pt-4 overflow-auto">
+      <b-container fluid class="pt-4 overflow-auto" v-if="profiles.length != 0">
         <b-link
           :to="'/view/'+profile.uid"
           class="text-decoration-none text-regular"
@@ -62,6 +62,17 @@
           </b-row>
         </b-link>
       </b-container>
+      <b-container v-else class="pt-4 h-100 mx-100">
+        <b-row class="p-1 h-100 mx-100">
+          <b-col align-self="center" class="p-1">
+            <b-img fluid :src="fail"></b-img>
+            <p class="text-center px-3 pt-3">
+              No has escaneado ningún perfil. Presiona
+              <b>"Escanear"</b>, dale permisos a la aplicación para acceder a la cámara y acercala a un código QR para agregar un perfil.
+            </p>
+          </b-col>
+        </b-row>
+      </b-container>
     </b-skeleton-wrapper>
   </b-container>
 </template>
@@ -72,17 +83,20 @@ export default {
   data() {
     return {
       loading: true,
-      profiles: {}
+      profiles: [],
+      fail: require("@/assets/not_found.svg")
     };
   },
   mounted() {
-    this.test();
+    this.loadRecentProfiles();
   },
   methods: {
-    getProfilePhoto: function(image) {
-      return process.env.VUE_APP_BASE_URL + "resources/images/" + image;
+    getProfilePhoto: function(image = null) {
+      return image != null
+        ? process.env.VUE_APP_BASE_URL + "resources/images/" + image
+        : null;
     },
-    test() {
+    loadRecentProfiles() {
       let datos = JSON.parse(localStorage.getItem("recent-profiles"));
       const arr = [...new Set(datos)];
       let formData = this.toFormData(arr);
@@ -93,6 +107,7 @@ export default {
           formData
         )
         .then(response => {
+          console.log(response.data.dataset);
           this.profiles = response.data.dataset;
           this.loading = false;
         });

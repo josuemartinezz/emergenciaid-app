@@ -11,8 +11,8 @@
           <small>Dui: {{ dui }}</small>
           <small>{{ direccion }}</small>
           <small>{{ ciudad }}</small>
-          <router-link :to="'/view/'+uid">Ver Perfil</router-link>
         </div>
+        <router-link :to="'/view/'+uid">Ver Perfil</router-link>
       </div>
     </div>
   </div>
@@ -65,9 +65,10 @@ export default {
   flex-direction: column;
 }
 .broke {
-  width: 70%;
+  width: 100%;
   white-space: nowrap;
   overflow: hidden;
+  display: inline-block;
   text-overflow: ellipsis;
 }
 b {
@@ -78,21 +79,23 @@ b {
     display: flex;
     padding: 20px;
     .img-container {
-      width: 50%;
+      width: 40%;
       img {
         width: 100%;
-        padding-left: 45px;
-        padding-top: 50px;
-        padding-bottom: 50px;
-        padding-right: 10px;
-        object-fit: cover;
       }
     }
     .user-information {
+      padding-left: 0.9em;
+      font-size: 1.2em;
       text-align: start;
-      display: flex;
       align-items: center;
-      width: 50%;
+      width: 60%;
+      line-height: 1em;
+      display: block;
+    }
+    a {
+      display: block;
+      margin-top: 5%;
     }
   }
 }

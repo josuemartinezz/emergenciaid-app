@@ -67,7 +67,8 @@ export default {
       url: process.env,
       loginData: {
         email: "",
-        password: ""
+        password: "",
+        app: true
       },
       state: false,
       loginButton: "Acceder",
@@ -107,7 +108,7 @@ export default {
       this.loginButton = "Accediendo...";
       axios
         .post(
-          process.env.VUE_APP_BASE_URL + "api/app/user.php?action=login",
+          process.env.VUE_APP_BASE_URL + "api/admin/user.php?action=login",
           formData,
           {
             headers: {

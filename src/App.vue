@@ -4,13 +4,7 @@
       class="py-4 navbar-shadow w-100 bg-white"
       v-show="!(currentRouteName == 'Qrcode' || currentRouteName === 'Viewprofile' || currentRouteName === 'Search')"
     >
-      <b-img class="logo" :src="logo" alt="Emergencia.id" fluid></b-img>
-      <b-navbar-nav class="ml-auto" v-show="$store.state.user.authenticated">
-        <b-button size="sm" class="m-0" pill variant="light" to="/search">
-          <b-icon-search></b-icon-search>
-          <p class="d-inline-block p-0 ml-2 my-0">Buscar</p>
-        </b-button>
-      </b-navbar-nav>
+      <b-img class="pl-3" style="height:35px;" :src="logo" alt="Emergencia.id" fluid></b-img>
     </b-navbar>
     <transition name="page" mode="out-in">
       <router-view></router-view>
@@ -96,7 +90,7 @@ export default {
 }
 .page-enter-active,
 .page-leave-active {
-  transition: opacity 1s, transform 1s;
+  transition: opacity 0.7s, transform 0.7s;
 }
 .page-enter,
 .page-leave-to {
